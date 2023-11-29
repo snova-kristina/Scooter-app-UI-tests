@@ -1,21 +1,13 @@
 package ru.yandex.praktikum;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
-public class FaqTest {
-	private WebDriver webDriver;
+public class FaqTest extends BaseTest {
 	private final String expectedAccordionHeader;
 	private final String expectedAccordionPanel;
 	private final String index;
@@ -40,32 +32,9 @@ public class FaqTest {
 		};
 	}
 
-	@Before
-	public void setup() {
-		switch (System.getProperty("browser")) {
-			case "chrome":
-				WebDriverManager.chromedriver().setup();
-				ChromeOptions options = new ChromeOptions();
-				options.addArguments("--remote-allow-origins=*");
-				this.webDriver = new ChromeDriver(options);
-				break;
-			case "firefox":
-			default:
-				WebDriverManager.firefoxdriver().setup();
-				this.webDriver = new FirefoxDriver();
-		}
-	}
-
-	@After
-	public void tearDown() {
-		webDriver.quit();
-	}
-
 	@Test
 	public void whenClickOnQuestionRightAnswerIsDisplayed() {
 		MainPageObject objMainPage = new MainPageObject(webDriver);
-		objMainPage.openPage();
-		objMainPage.allowCookie();
 		objMainPage.scrollToFaq();
 		String actualAccordionQuestion = objMainPage.getAccordionQuestion(index);
 		String actualAccordionAnswer = objMainPage.getAccordionAnswer(index);

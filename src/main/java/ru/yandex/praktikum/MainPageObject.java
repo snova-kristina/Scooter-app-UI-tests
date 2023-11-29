@@ -8,11 +8,6 @@ import org.openqa.selenium.WebElement;
 public class MainPageObject {
 
 	private final WebDriver webDriver;
-
-	public MainPageObject(WebDriver webDriver) {
-		this.webDriver = webDriver;
-	}
-
 	//кнопка принять куки
 	private By confirmCookieButton = By.id("rcc-confirm-button");
 	//кнопка "Заказать" в шапке
@@ -25,6 +20,10 @@ public class MainPageObject {
 	private String accordionHeader = "//div[@id='accordion__heading-%s']";
 	//элемент списка FAQ- ответ
 	private String accordionPanel = "//div[@id='accordion__panel-%s']";
+
+	public MainPageObject(WebDriver webDriver) {
+		this.webDriver = webDriver;
+	}
 
 	//метод открытия главной страницы
 	public void openPage() {

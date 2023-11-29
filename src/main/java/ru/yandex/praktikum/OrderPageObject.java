@@ -13,12 +13,6 @@ public class OrderPageObject {
 
 	private final WebDriver webDriver;
 	private final WebDriverWait webDriverWait;
-
-	public OrderPageObject(WebDriver webDriver) {
-		this.webDriver = webDriver;
-		this.webDriverWait = new WebDriverWait(webDriver, Duration.ofSeconds(5));
-	}
-
 	//элементы блока "Для кого самокат"
 	private By orderBlock = By.className("Order_Header__BZXOb");
 	//поле "Имя"
@@ -33,7 +27,6 @@ public class OrderPageObject {
 	private By phoneNumberField = By.xpath("//input[@placeholder='* Телефон: на него позвонит курьер']");
 	//кнопка "Далее"
 	private By orderNextButton = By.className("Button_Middle__1CSJM");
-
 	//элементы блока "Про аренду"
 	//поле "Когда привезти самокат"
 	private By deliveryDateField = By.xpath(".//input[@placeholder='* Когда привезти самокат']");
@@ -66,6 +59,10 @@ public class OrderPageObject {
 	//сообщение об успешном заказе
 	private By orderStatusHeader = By.className("Order_ModalHeader__3FDaJ");
 
+	public OrderPageObject(WebDriver webDriver) {
+		this.webDriver = webDriver;
+		this.webDriverWait = new WebDriverWait(webDriver, Duration.ofSeconds(5));
+	}
 
 	//методы для работы с элементами блока "Для кого самокат"
 	public void waitForLoadOrderPage() {
@@ -138,12 +135,12 @@ public class OrderPageObject {
 		Assert.assertTrue(popupText.contains("Заказ оформлен"));
 	}
 
-	public void fillRecipientBlock() {
-		setName("Пользователь");
-		setSurname("Тестовый");
-		setAddress("Ленина ул., 2, кв. 1");
+	public void fillRecipientBlock(String name, String surname, String address, String phone) {
+		setName(name);
+		setSurname(surname);
+		setAddress(address);
 		setSubway();
-		setPhoneNumber("+79001234567");
+		setPhoneNumber(phone);
 		clickNextButton();
 	}
 }
